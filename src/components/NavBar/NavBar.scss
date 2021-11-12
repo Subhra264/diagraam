@@ -1,0 +1,38 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1a38;
+    color: #ddddddbf;
+
+    .left {
+        display: flex;
+
+        .icon {
+            width: 3em;
+            height: 3em;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.5em;
+            margin: 0.2em 0.1em;
+            cursor: pointer;
+
+            &.hoverable:hover, &.active {
+                background: #2A2544;
+                color: #ddd;
+            }
+        }
+
+        .logo {
+            margin: 0;
+            height: 3.4em;
+            border-radius: 0 0.5em 0.5em 0;
+            background-color: #C8CC12;
+        }
+    }
+
+    .middle {
+        font-size: 1.3em;
+    }
+}
