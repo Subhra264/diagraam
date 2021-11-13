@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import 'jointjs/dist/joint.core.css';
-import { dia, highlighters, shapes } from 'jointjs';
+import { dia, highlighters, linkTools, elementTools, shapes } from 'jointjs';
 
 export default function DiagramEditor () {
     const canvas = useRef(null);
@@ -22,6 +22,21 @@ export default function DiagramEditor () {
             },
             frozen: true,
             async: true
+        });
+        const verticesLinkTool = new linkTools.Vertices();
+        const segmentsLinkTool = new linkTools.Segments();
+        const removeLinkButton = new linkTools.Remove();
+
+        const removeElemTool = new elementTools.Remove();
+
+        const linkToolsView = new dia.ToolsView({
+            name: 'link-tools',
+            tools: [verticesLinkTool, segmentsLinkTool, removeLinkButton,]
+        });
+
+        const elemToolsView = new dia.ToolsView({
+            name: 'element-tools',
+            tools: [removeElemTool,]
         });
 
         /************** Event Handlers ***************/
@@ -55,6 +70,7 @@ export default function DiagramEditor () {
                 }
             });
         });
+
         paper.on('cell:contextmenu', function (cellView) {
             cellView.pointerclick();
         });
@@ -119,7 +135,7 @@ export default function DiagramEditor () {
                     'stroke-width': 3
                 }
             });
-        })
+        });
 
         paper.on('cell:mouseout', function (cellView) {
             highlighters.mask.remove(cellView, 'my-hover-highlight');
@@ -131,9 +147,30 @@ export default function DiagramEditor () {
             }
         });
 
+        paper.on('link:pointerclick', function (linkView) {
+            paper.removeTools();
+            linkView.addTools(linkToolsView);
+        });
+
+        paper.on('link:pointerdown', function (linkView) {
+            this.removeTools();
+            linkView.addTools(linkToolsView);
+        });
+
+        paper.on('element:pointerclick', function (elementView) {
+            this.removeTools();
+            elementView.addTools(elemToolsView);
+        });
+
+        paper.on('element:pointerdown', function (elementView) {
+            this.removeTools();
+            elementView.addTools(elemToolsView);
+        });
+
         paper.on('blank:pointerclick', function () {
             resetAll(this);
-        })
+            paper.removeTools();
+        });
         /****************************************/
 
         const resetAll = paper => {
