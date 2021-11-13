@@ -24,13 +24,66 @@ export default function DiagramEditor () {
             async: true
         });
 
+        /************** Event Handlers ***************/
+
         paper.on('cell:pointerclick', function (cellView) {
-            console.log(this);
             resetAll(this);
-            highlighters.mask.remove(cellView);
+            let cell = cellView.model;
+            if (cell.isLink()) {
+                cell.attr({
+                    line: {
+                        stroke: 'orange'
+                    }
+                })
+                highlighters.mask.add(cellView, { selector: 'root' }, 'my-cell-highlight', {
+                    padding: 0,
+                    deep: true,
+                    layer: 'back',
+                    attrs: {
+                        'stoke': null
+                    }
+                });
+                return;
+            }
             highlighters.mask.add(cellView, { selector: 'root' }, 'my-cell-highlight', {
                 padding: 0,
                 deep: true,
+                layer: 'front',
+                attrs: {
+                    'stroke': 'orange',
+                    'stroke-width': 3
+                }
+            });
+        });
+        paper.on('cell:contextmenu', function (cellView) {
+            cellView.pointerclick();
+        });
+
+        paper.on('cell:mouseover', function (cellView) {
+            if (highlighters.mask.get(cellView, 'my-cell-highlight')) {
+                return;
+            }
+            let cell = cellView.model;
+            if (cell.isLink()) {
+                cell.attr({
+                    line: {
+                        stroke: 'orange'
+                    }
+                })
+                highlighters.mask.add(cellView, { selector: 'root' }, 'my-hover-highlight', {
+                    padding: 0,
+                    deep: true,
+                    layer: 'back',
+                    attrs: {
+                        'stoke': null
+                    }
+                });
+                return;
+            }
+            highlighters.mask.add(cellView, { selector: 'root' }, 'my-hover-highlight', {
+                padding: 0,
+                deep: true,
+                layer: 'front',
                 attrs: {
                     'stroke': 'orange',
                     'stroke-width': 3
@@ -38,23 +91,75 @@ export default function DiagramEditor () {
             });
         });
 
-        const resetAll = paper => {
-            let cells = paper.model.getCells();
-            console.log(cells);
-            for (let i = 0; cells.length; i++) {
-                let cellView = paper.findViewByModel(cells[i]);
-                console.log("cell is ", cellView);
-                highlighters.mask.remove(cellView);
+        paper.on('cell:pointerdown', function (cellView) {
+            resetAll(this);
+            let cell = cellView.model;
+            if (cell.isLink()) {
+                cell.attr({
+                    line: {
+                        stroke: 'orange'
+                    }
+                })
+                highlighters.mask.add(cellView, { selector: 'root' }, 'my-cell-highlight', {
+                    padding: 0,
+                    deep: true,
+                    layer: 'back',
+                    attrs: {
+                        'stoke': null
+                    }
+                });
+                return;
             }
-        }
+            highlighters.mask.add(cellView, { selector: 'root' }, 'my-cell-highlight', {
+                padding: 0,
+                deep: true,
+                layer: 'front',
+                attrs: {
+                    'stroke': 'orange',
+                    'stroke-width': 3
+                }
+            });
+        })
+
+        paper.on('cell:mouseout', function (cellView) {
+            highlighters.mask.remove(cellView, 'my-hover-highlight');
+            let cell = cellView.model;
+            if (cell.isLink()) {
+                if (!(highlighters.mask.get(cellView, 'my-cell-highlight'))) {
+                    cell.attr('line/stroke', '#64A0C1');
+                }
+            }
+        });
+
+        paper.on('blank:pointerclick', function () {
+            resetAll(this);
+        })
+        /****************************************/
+
+        const resetAll = paper => {
+            let elems = paper.model.getElements();
+            for (let i = 0; i < elems.length; i++) {
+                let elemView = paper.findViewByModel(elems[i]);
+                highlighters.mask.remove(elemView);
+            }
+            let links = paper.model.getLinks();
+            for (let i=0; i< links.length; i++) {
+                link = links[i];
+                link.attr('line/stroke', '#64A0C1');
+                let linkView = paper.findViewByModel(link);
+                highlighters.mask.remove(linkView);
+            }
+        };
 
         const rect = new shapes.standard.Rectangle({
             position: { x: 100, y: 100 },
             size: { width: 100, height: 50 },
             attrs: {
                 body: {
-                    fill: '#DDBE51',
+                    fill: '#1E1B31',
                     stroke: null,
+                    rx: 10,
+                    ry: 10,
                 },
                 label: {
                     text: 'Hello World',
@@ -71,6 +176,7 @@ export default function DiagramEditor () {
         let link = new shapes.standard.Link();
         link.source(rect);
         link.target(rect2);
+        link.attr('line/stroke', '#64A0C1');
         link.addTo(graph);
         rect2 = rect.clone();
         rect2.attr('label/text', 'howdy world');
@@ -79,6 +185,7 @@ export default function DiagramEditor () {
         link = new shapes.standard.Link();
         link.source(rect);
         link.target(rect2);
+        link.attr('line/stroke', '#64A0C1');
         link.addTo(graph);
         rect2 = rect.clone();
         rect2.attr('label/text', 'hail world');
@@ -87,10 +194,11 @@ export default function DiagramEditor () {
         link = new shapes.standard.Link();
         link.source(rect);
         link.target(rect2);
+        link.attr('line/stroke', '#64A0C1');
         link.addTo(graph);
 
         paper.unfreeze();
-    }, [])
+    }, []);
 
     return (
         <div className="diagram-editor" ref={canvas}></div>
