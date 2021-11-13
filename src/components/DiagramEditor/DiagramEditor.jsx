@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import 'jointjs/dist/joint.core.css';
-import { dia, highlighters, linkTools, elementTools, shapes } from 'jointjs';
+import { dia, highlighters, linkTools, connectionStrategies, elementTools, shapes } from 'jointjs';
 
 export default function DiagramEditor () {
     const canvas = useRef(null);
@@ -21,23 +21,67 @@ export default function DiagramEditor () {
                 args: { color: '#2C2E41', thickness: 1 , }, // settings for the primary mesh
             },
             frozen: true,
-            async: true
+            snapLinks: true,
+            linkPinning: false,
+            defaultLink: new shapes.standard.Link(),
+            async: true,
+            connectionStrategy: connectionStrategies.pinAbsolute,
         });
+
+
+        /******** tools View *********/
+
         const verticesLinkTool = new linkTools.Vertices();
         const segmentsLinkTool = new linkTools.Segments();
         const removeLinkButton = new linkTools.Remove();
-
-        const removeElemTool = new elementTools.Remove();
 
         const linkToolsView = new dia.ToolsView({
             name: 'link-tools',
             tools: [verticesLinkTool, segmentsLinkTool, removeLinkButton,]
         });
 
+        const removeElemTool = new elementTools.Remove();
+        const LinkGenerateButton = elementTools.Button.extend({
+            name: 'link-generate-button',
+            options: {
+                markup: [{
+                    tagName: 'circle',
+                    selector: 'button',
+                    attributes: {
+                        'r': 10,
+                        'fill': '#64A0C1',
+                        'stroke': 'white',
+                        'stroke-width': 1,
+                        'cursor': 'pointer'
+                    }
+                }],
+                x: '100%',
+                y: '50%',
+                offset: {
+                    x: 0,
+                    y: 0
+                },
+                rotate: true,
+                action: function (evt, elementView, buttonView) {
+                    let link = new shapes.standard.Link();
+                    link.source(elementView.model, {
+                        anchor: {
+                            name: 'modelCenter'
+                        }
+                    });
+                    link.set('target', {x: evt.pageX, y: evt.pageY});
+                    link.addTo(paper.model);
+                }
+            }
+        });
+        const linkgenerationbutton = new LinkGenerateButton();
+
         const elemToolsView = new dia.ToolsView({
             name: 'element-tools',
-            tools: [removeElemTool,]
+            tools: [removeElemTool, linkgenerationbutton]
         });
+
+        /************ *************/
 
         /************** Event Handlers ***************/
 
@@ -155,6 +199,18 @@ export default function DiagramEditor () {
         paper.on('link:pointerdown', function (linkView) {
             this.removeTools();
             linkView.addTools(linkToolsView);
+        });
+
+        paper.on('link:pointerup', function (linkView, evt, x, y) {
+            let linkmodel = linkView.model;
+            if (linkmodel.getSourceElement() && linkmodel.getTargetElement()) {
+                return;
+            }
+            let models = graph.findModelsFromPoint({ x: x, y: y });
+            if (models.length) {
+                let model = models[0];
+                linkmodel.target(model);
+            }
         });
 
         paper.on('element:pointerclick', function (elementView) {
