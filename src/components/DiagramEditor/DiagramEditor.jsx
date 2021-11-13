@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import 'jointjs/dist/joint.core.css';
 import { dia, highlighters, linkTools, elementTools, shapes } from 'jointjs';
 
-export default function DiagramEditor () {
+export default function DiagramEditor (props) {
     const canvas = useRef(null);
     
     useEffect(() => {
@@ -13,8 +13,8 @@ export default function DiagramEditor () {
             background: {
                 color: '#1B283F'
             },
-            width: 700,
-            height: 499,
+            width: '100%',
+            height: '100%',
             gridSize: 40,
             drawGrid: {
                 name: 'mesh',
@@ -23,6 +23,10 @@ export default function DiagramEditor () {
             frozen: true,
             async: true
         });
+
+        props.setEditorGraph(graph);
+        props.setEditorPaper(paper);
+
         const verticesLinkTool = new linkTools.Vertices();
         const segmentsLinkTool = new linkTools.Segments();
         const removeLinkButton = new linkTools.Remove();

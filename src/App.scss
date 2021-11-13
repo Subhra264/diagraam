@@ -1,6 +1,15 @@
-.App {
-  .display-none {
-    display: none;
+#root {
+  &, .App {
+    height: 100%;
+    width: 100%;
   }
 
+  .App {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+  
+    .display-none {
+      display: none;
+    }
+  }
 }

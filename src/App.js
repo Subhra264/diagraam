@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.scss';
+import AppWrapper from './components/AppWrapper/AppWrapper';
 import DiagramEditor from './components/DiagramEditor/DiagramEditor';
 import NavBar from './components/NavBar/NavBar';
 import { DiagramType } from './utils/Types';
@@ -13,7 +14,7 @@ function App() {
         diagramType={diagramType}
         setDiagramType={setDiagramType}
       />
-      <DiagramEditor />
+      <AppWrapper />
     </div>
   );
 }
