@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1e1a38;
-    color: #ddddddbf;
+    background: #1E1A38;
+    color: #DDDDDDBF;
 
     .left {
         display: flex;
@@ -20,7 +20,12 @@
 
             &.hoverable:hover, &.active {
                 background: #2A2544;
-                color: #ddd;
+                
+                svg {
+                    path {
+                        fill: #DDD;
+                    }
+                }
             }
         }
 
