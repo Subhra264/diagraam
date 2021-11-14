@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'jointjs/dist/joint.core.css';
 import { dia, highlighters, linkTools, connectionStrategies, elementTools, shapes } from 'jointjs';
 
 export default function DiagramEditor (props) {
     const canvas = useRef(null);
+    const [currentId, setCurrentId] = useState(null);
     
     useEffect(() => {
         const graph = new dia.Graph();
@@ -15,7 +16,7 @@ export default function DiagramEditor (props) {
             },
             width: '100%',
             height: '100%',
-            gridSize: 40,
+            gridSize: 30,
             drawGrid: {
                 name: 'mesh',
                 args: { color: '#2C2E41', thickness: 1 , }, // settings for the primary mesh
@@ -65,7 +66,11 @@ export default function DiagramEditor (props) {
                 },
                 rotate: true,
                 action: function (evt, elementView, buttonView) {
-                    let link = new shapes.standard.Link();
+                    let link = new shapes.standard.Link({
+                        label: {
+                            text: 'link'
+                        }
+                    });
                     link.source(elementView.model, {
                         anchor: {
                             name: 'modelCenter'
@@ -90,6 +95,16 @@ export default function DiagramEditor (props) {
         paper.on('cell:pointerclick', function (cellView) {
             resetAll(this);
             let cell = cellView.model;
+            console.log(cell);
+            setCurrentId(cell.id);
+            props.setTitle(cell.attr('label/text'))
+            let cellType = cell.isElement()? 'element': 'link';
+            if (cellType==='element') {
+                let elemType = cell.attributes.type.split('.')[1];
+                cellType = cellType + '.'+ elemType;
+                console.log(elemType, cellType);
+            }
+            props.setCellType(cellType);
             if (cell.isLink()) {
                 cell.attr({
                     line: {
@@ -101,7 +116,7 @@ export default function DiagramEditor (props) {
                     deep: true,
                     layer: 'back',
                     attrs: {
-                        'stoke': null
+                        'stroke': null
                     }
                 });
                 return;
@@ -156,6 +171,15 @@ export default function DiagramEditor (props) {
         paper.on('cell:pointerdown', function (cellView) {
             resetAll(this);
             let cell = cellView.model;
+            setCurrentId(cell.id);
+            props.setTitle(cell.attr('label/text'));
+            let cellType = cell.isElement()? 'element': 'link';
+            if (cellType==='element') {
+                let elemType = cell.attributes.type.split('.')[1];
+                cellType = cellType + '.'+ elemType;
+                console.log(elemType, cellType);
+            }
+            props.setCellType(cellType);
             if (cell.isLink()) {
                 cell.attr({
                     line: {
@@ -228,6 +252,8 @@ export default function DiagramEditor (props) {
         paper.on('blank:pointerclick', function () {
             resetAll(this);
             paper.removeTools();
+            props.setCellType(null);
+            setCurrentId(null);
         });
         /****************************************/
 
@@ -294,6 +320,21 @@ export default function DiagramEditor (props) {
 
         paper.unfreeze();
     }, []);
+
+    useEffect(() => {
+        const graph = props.editorGraph;
+        console.log(props.editorGraph);
+        const paper = props.editorPaper;
+        console.log(paper);
+        if (graph && paper) {
+            if (currentId) {
+                console.log("am i here?", currentId);
+                let cell = graph.getCell(currentId);
+                console.log(cell);
+                cell.attr('label/text', props.title);
+            }
+        }
+    }, [props.title, props.editorGraph, props.editorPaper]);
 
     return (
         <div className="diagram-editor" ref={canvas}></div>
