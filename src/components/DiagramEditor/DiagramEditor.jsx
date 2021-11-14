@@ -19,7 +19,7 @@ export default function DiagramEditor (props) {
             gridSize: 30,
             drawGrid: {
                 name: 'mesh',
-                args: { color: '#2C2E41', thickness: 1 , }, // settings for the primary mesh
+                args: { color: '#2C2E41', thickness: 1 }, // settings for the primary mesh
             },
             frozen: true,
             snapLinks: true,
@@ -40,7 +40,7 @@ export default function DiagramEditor (props) {
 
         const linkToolsView = new dia.ToolsView({
             name: 'link-tools',
-            tools: [verticesLinkTool, segmentsLinkTool, removeLinkButton,]
+            tools: [verticesLinkTool, segmentsLinkTool, removeLinkButton]
         });
 
         const removeElemTool = new elementTools.Remove();
@@ -76,7 +76,7 @@ export default function DiagramEditor (props) {
                             name: 'modelCenter'
                         }
                     });
-                    link.set('target', {x: evt.pageX, y: evt.pageY});
+                    link.set('target', { x: evt.pageX, y: evt.pageY });
                     link.addTo(paper.model);
                 }
             }
@@ -96,14 +96,18 @@ export default function DiagramEditor (props) {
             resetAll(this);
             let cell = cellView.model;
             console.log(cell);
+            
             setCurrentId(cell.id);
-            props.setTitle(cell.attr('label/text'))
+
+            props.setCellMetaData(cell.attributes.attrs);
+
             let cellType = cell.isElement()? 'element': 'link';
-            if (cellType==='element') {
+            if (cellType === 'element') {
                 let elemType = cell.attributes.type.split('.')[1];
                 cellType = cellType + '.'+ elemType;
                 console.log(elemType, cellType);
             }
+
             props.setCellType(cellType);
             if (cell.isLink()) {
                 cell.attr({
@@ -172,13 +176,15 @@ export default function DiagramEditor (props) {
             resetAll(this);
             let cell = cellView.model;
             setCurrentId(cell.id);
-            props.setTitle(cell.attr('label/text'));
+            props.setCellMetaData(cell.attributes.attrs);
+
             let cellType = cell.isElement()? 'element': 'link';
             if (cellType==='element') {
                 let elemType = cell.attributes.type.split('.')[1];
                 cellType = cellType + '.'+ elemType;
                 console.log(elemType, cellType);
             }
+
             props.setCellType(cellType);
             if (cell.isLink()) {
                 cell.attr({
@@ -323,18 +329,17 @@ export default function DiagramEditor (props) {
 
     useEffect(() => {
         const graph = props.editorGraph;
-        console.log(props.editorGraph);
         const paper = props.editorPaper;
-        console.log(paper);
         if (graph && paper) {
             if (currentId) {
-                console.log("am i here?", currentId);
                 let cell = graph.getCell(currentId);
-                console.log(cell);
-                cell.attr('label/text', props.title);
+                cell.attr({
+                    ...cell.attributes.attrs,
+                    ...props.cellMetaData
+                });
             }
         }
-    }, [props.title, props.editorGraph, props.editorPaper]);
+    }, [props.cellMetaData, props.editorGraph, props.editorPaper]);
 
     return (
         <div className="diagram-editor" ref={canvas}></div>
