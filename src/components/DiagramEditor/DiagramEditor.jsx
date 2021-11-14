@@ -98,11 +98,11 @@ export default function DiagramEditor (props) {
             console.log(cell);
             
             setCurrentId(cell.id);
-
-            props.setCellMetaData(cell.attributes.attrs);
-
+            
             let cellType = cell.isElement()? 'element': 'link';
             if (cellType === 'element') {
+                props.setCellMetaData(cell.attributes.attrs);
+
                 let elemType = cell.attributes.type.split('.')[1];
                 cellType = cellType + '.'+ elemType;
                 console.log(elemType, cellType);
@@ -176,10 +176,11 @@ export default function DiagramEditor (props) {
             resetAll(this);
             let cell = cellView.model;
             setCurrentId(cell.id);
-            props.setCellMetaData(cell.attributes.attrs);
-
+            
             let cellType = cell.isElement()? 'element': 'link';
             if (cellType==='element') {
+                props.setCellMetaData(cell.attributes.attrs);
+
                 let elemType = cell.attributes.type.split('.')[1];
                 cellType = cellType + '.'+ elemType;
                 console.log(elemType, cellType);
@@ -333,10 +334,12 @@ export default function DiagramEditor (props) {
         if (graph && paper) {
             if (currentId) {
                 let cell = graph.getCell(currentId);
-                cell.attr({
-                    ...cell.attributes.attrs,
-                    ...props.cellMetaData
-                });
+                if (cell && !cell.isLink()) {
+                    cell.attr({
+                        ...cell.attributes.attrs,
+                        ...props.cellMetaData
+                    });
+                }
             }
         }
     }, [props.cellMetaData, props.editorGraph, props.editorPaper]);

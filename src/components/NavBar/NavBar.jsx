@@ -20,6 +20,7 @@ export default function NavBar (props) {
                             className={'icon hoverable' + (icon.type === props.diagramType? ' active' : '')}
                             title={icon.title}
                             onClick={() => props.setDiagramType(icon.type)}
+                            key={icon.title}
                         >
                             {icon.label}
                         </div>
