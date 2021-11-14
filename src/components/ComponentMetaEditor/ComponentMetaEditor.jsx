@@ -11,7 +11,7 @@ export default function ComponentMetaEditor (props) {
     }
 
     return (
-        <div className="meta-editor">
+        <div className="component-meta-editor">
         {
         (props.cellType)?(
             <div className="container">
@@ -21,7 +21,7 @@ export default function ComponentMetaEditor (props) {
                 </div>
                 <div className="meta-description-container">
                     <h3 className="meta-description-header">Description</h3>
-                    <textarea onChange={changeDescription} value={props.description}/>
+                    <textarea onChange={changeDescription} value={props.description} />
                 </div>
                 { props.cellType==='element'? (
                     <div className='element-specific-attr'>
