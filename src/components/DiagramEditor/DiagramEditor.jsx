@@ -102,6 +102,7 @@ export default function DiagramEditor (props) {
             let cellType = cell.isElement()? 'element': 'link';
             if (cellType === 'element') {
                 props.setCellMetaData(cell.attributes.attrs);
+                props.setCellSize(cell.attributes.size);
 
                 let elemType = cell.attributes.type.split('.')[1];
                 cellType = cellType + '.'+ elemType;
@@ -180,6 +181,7 @@ export default function DiagramEditor (props) {
             let cellType = cell.isElement()? 'element': 'link';
             if (cellType==='element') {
                 props.setCellMetaData(cell.attributes.attrs);
+                props.setCellSize(cell.attributes.size);
 
                 let elemType = cell.attributes.type.split('.')[1];
                 cellType = cellType + '.'+ elemType;
@@ -272,58 +274,12 @@ export default function DiagramEditor (props) {
             }
             let links = paper.model.getLinks();
             for (let i=0; i< links.length; i++) {
-                link = links[i];
+                let link = links[i];
                 link.attr('line/stroke', '#64A0C1');
                 let linkView = paper.findViewByModel(link);
                 highlighters.mask.remove(linkView);
             }
         };
-
-        const rect = new shapes.standard.Rectangle({
-            position: { x: 100, y: 100 },
-            size: { width: 100, height: 50 },
-            attrs: {
-                body: {
-                    fill: '#1E1B31',
-                    stroke: null,
-                    rx: 10,
-                    ry: 10,
-                },
-                label: {
-                    text: 'Hello World',
-                    fill: 'white',
-                }
-            }
-        });
-
-        graph.addCell(rect);
-        let rect2 = rect.clone();
-        rect2.attr('label/text', 'how world');
-        rect2.translate(300, 0);
-        graph.addCell(rect2);
-        let link = new shapes.standard.Link();
-        link.source(rect);
-        link.target(rect2);
-        link.attr('line/stroke', '#64A0C1');
-        link.addTo(graph);
-        rect2 = rect.clone();
-        rect2.attr('label/text', 'howdy world');
-        rect2.translate(100, 0);
-        graph.addCell(rect2);
-        link = new shapes.standard.Link();
-        link.source(rect);
-        link.target(rect2);
-        link.attr('line/stroke', '#64A0C1');
-        link.addTo(graph);
-        rect2 = rect.clone();
-        rect2.attr('label/text', 'hail world');
-        rect2.translate(300, 199);
-        graph.addCell(rect2);
-        link = new shapes.standard.Link();
-        link.source(rect);
-        link.target(rect2);
-        link.attr('line/stroke', '#64A0C1');
-        link.addTo(graph);
 
         paper.unfreeze();
     }, []);
@@ -339,10 +295,12 @@ export default function DiagramEditor (props) {
                         ...cell.attributes.attrs,
                         ...props.cellMetaData
                     });
+
+                    cell.resize(props.cellSize.width, props.cellSize.height);
                 }
             }
         }
-    }, [props.cellMetaData, props.editorGraph, props.editorPaper]);
+    }, [props.cellSize, props.cellMetaData, props.editorGraph, props.editorPaper]);
 
     return (
         <div className="diagram-editor" ref={canvas}></div>

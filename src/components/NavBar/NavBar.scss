@@ -4,6 +4,10 @@
     align-items: center;
     background: #1E1A38;
     color: #DDDDDDBF;
+    
+    &, .right {
+        overflow: visible;
+    }
 
     .left {
         display: flex;
@@ -40,4 +44,5 @@
     .middle {
         font-size: 1.3em;
     }
+
 }

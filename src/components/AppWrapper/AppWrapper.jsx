@@ -9,6 +9,7 @@ export default function AppWrapper (props) {
     const [editorPaper, setEditorPaper] = useState(null);
     const [cellType, setCellType] = useState(null);
     const [cellMetaData, setCellMetaData] = useState({});
+    const [cellSize, setCellSize] = useState({});
 
     return (
         <div className="app-wrapper">
@@ -24,11 +25,15 @@ export default function AppWrapper (props) {
                 setCellType={setCellType}
                 cellMetaData={cellMetaData}
                 setCellMetaData={setCellMetaData}
+                cellSize={cellSize}
+                setCellSize={setCellSize}
             />
             <ComponentMetaEditor
                 cellType={cellType}
                 cellMetaData={cellMetaData}
                 setCellMetaData={setCellMetaData}
+                cellSize={cellSize}
+                setCellSize={setCellSize}
             />
         </div>
     );

@@ -5,8 +5,15 @@ $fieldBackgroundColor: #2C2E41;
 
     .container {
 
-        h3 {
-            padding-left: 0.5em;
+        h3, .underline {
+            margin-left: 0.5em;
+            color: #E9DADA;
+        }
+
+        .underline {
+            width: 8em;
+            height: 1px;
+            background-color: #E9DADA;
         }
         
         input, textarea {

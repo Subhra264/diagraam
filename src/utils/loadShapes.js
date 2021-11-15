@@ -110,6 +110,9 @@ export default function loadShapes (shapesContainerRef, editorGraph, editorPaper
             body: {
                 fill: SHAPE_FILL_COLOR,
                 stroke: null
+            },
+            bodyText: {
+                text: ''
             }
         }
     });
@@ -118,6 +121,9 @@ export default function loadShapes (shapesContainerRef, editorGraph, editorPaper
         position: { x: 10, y: 210 },
         size: { width: 75, height: 50 },
         attrs: {
+            image: {
+                xlinkHref: ''
+            },
             body: {
                 fill: SHAPE_FILL_COLOR,
                 stroke: null
@@ -133,6 +139,9 @@ export default function loadShapes (shapesContainerRef, editorGraph, editorPaper
         position: { x: 110, y: 210 },
         size: { width: 75, height: 50 },
         attrs: {
+            image: {
+                xlinkHref: ''
+            },
             body: {
                 fill: SHAPE_FILL_COLOR,
                 stroke: null
@@ -148,6 +157,9 @@ export default function loadShapes (shapesContainerRef, editorGraph, editorPaper
         position: { x: 10, y: 290 },
         size: { width: 75, height: 50 },
         attrs: {
+            image: {
+                xlinkHref: ''
+            },
             body: {
                 fill: SHAPE_FILL_COLOR,
                 stroke: null
