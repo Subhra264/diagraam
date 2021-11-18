@@ -32,7 +32,9 @@ export default function NavBar (props) {
                 Diagraam
             </div>
             <div className="right">
-                <Export />
+                <Export 
+                    editorGraph={props.editorGraph}
+                />
             </div>
         </div>
     );

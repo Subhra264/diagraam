@@ -7,14 +7,19 @@ import { DiagramType } from './utils/Types';
 
 function App() {
   const [diagramType, setDiagramType] = useState(DiagramType.ARCHITECTURE);
+  const [editorGraph, setEditorGraph] = useState(null);
 
   return (
     <div className="App">
       <NavBar 
         diagramType={diagramType}
         setDiagramType={setDiagramType}
+        editorGraph={editorGraph}
       />
-      <AppWrapper />
+      <AppWrapper 
+        editorGraph={editorGraph}
+        setEditorGraph={setEditorGraph}
+      />
     </div>
   );
 }

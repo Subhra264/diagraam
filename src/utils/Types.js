@@ -1,7 +1,8 @@
 export const ExportType = {
-    HTML: 'HTML',
-    PNG: 'PNG',
-    JPEG: 'JPEG'
+    JSON: 'json',
+    // HTML: 'html',
+    // PNG: 'png',
+    // JPEG: 'jpeg'
 };
 
 export const DiagramType = {

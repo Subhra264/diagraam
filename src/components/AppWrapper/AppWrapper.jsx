@@ -5,7 +5,6 @@ import DiagramEditor from '../DiagramEditor/DiagramEditor';
 import './AppWrapper.scss';
 
 export default function AppWrapper (props) {
-    const [editorGraph, setEditorGraph] = useState(null);
     const [editorPaper, setEditorPaper] = useState(null);
     const [cellType, setCellType] = useState(null);
     const [cellMetaData, setCellMetaData] = useState({});
@@ -14,14 +13,14 @@ export default function AppWrapper (props) {
     return (
         <div className="app-wrapper">
             <ComponentSelector 
-                editorGraph={editorGraph}
+                editorGraph={props.editorGraph}
                 editorPaper={editorPaper}
             />
             <DiagramEditor
-                setEditorGraph={setEditorGraph}
-                setEditorPaper={setEditorPaper}
-                editorGraph={editorGraph}
+                editorGraph={props.editorGraph}
+                setEditorGraph={props.setEditorGraph}
                 editorPaper={editorPaper}
+                setEditorPaper={setEditorPaper}
                 setCellType={setCellType}
                 cellMetaData={cellMetaData}
                 setCellMetaData={setCellMetaData}
