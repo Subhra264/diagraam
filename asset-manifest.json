@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/diagraam/static/css/main.57dcd409.chunk.css",
-    "main.js": "/diagraam/static/js/main.2dd06b4c.chunk.js",
-    "main.js.map": "/diagraam/static/js/main.2dd06b4c.chunk.js.map",
-    "runtime-main.js": "/diagraam/static/js/runtime-main.589589bb.js",
-    "runtime-main.js.map": "/diagraam/static/js/runtime-main.589589bb.js.map",
+    "main.js": "/diagraam/static/js/main.db347666.chunk.js",
+    "main.js.map": "/diagraam/static/js/main.db347666.chunk.js.map",
+    "runtime-main.js": "/diagraam/static/js/runtime-main.36a6276c.js",
+    "runtime-main.js.map": "/diagraam/static/js/runtime-main.36a6276c.js.map",
     "static/css/2.0acde3d6.chunk.css": "/diagraam/static/css/2.0acde3d6.chunk.css",
-    "static/js/2.c5bead3f.chunk.js": "/diagraam/static/js/2.c5bead3f.chunk.js",
-    "static/js/2.c5bead3f.chunk.js.map": "/diagraam/static/js/2.c5bead3f.chunk.js.map",
-    "static/js/3.eacea44b.chunk.js": "/diagraam/static/js/3.eacea44b.chunk.js",
-    "static/js/3.eacea44b.chunk.js.map": "/diagraam/static/js/3.eacea44b.chunk.js.map",
+    "static/js/2.b14ba305.chunk.js": "/diagraam/static/js/2.b14ba305.chunk.js",
+    "static/js/2.b14ba305.chunk.js.map": "/diagraam/static/js/2.b14ba305.chunk.js.map",
+    "static/js/3.4feaa873.chunk.js": "/diagraam/static/js/3.4feaa873.chunk.js",
+    "static/js/3.4feaa873.chunk.js.map": "/diagraam/static/js/3.4feaa873.chunk.js.map",
     "index.html": "/diagraam/index.html",
     "static/css/2.0acde3d6.chunk.css.map": "/diagraam/static/css/2.0acde3d6.chunk.css.map",
     "static/css/main.57dcd409.chunk.css.map": "/diagraam/static/css/main.57dcd409.chunk.css.map",
-    "static/js/2.c5bead3f.chunk.js.LICENSE.txt": "/diagraam/static/js/2.c5bead3f.chunk.js.LICENSE.txt",
+    "static/js/2.b14ba305.chunk.js.LICENSE.txt": "/diagraam/static/js/2.b14ba305.chunk.js.LICENSE.txt",
     "static/media/ArchitectureIcon.3fe65492.svg": "/diagraam/static/media/ArchitectureIcon.3fe65492.svg",
     "static/media/DecisionTreeIcon.61c56d55.svg": "/diagraam/static/media/DecisionTreeIcon.61c56d55.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.589589bb.js",
+    "static/js/runtime-main.36a6276c.js",
     "static/css/2.0acde3d6.chunk.css",
-    "static/js/2.c5bead3f.chunk.js",
+    "static/js/2.b14ba305.chunk.js",
     "static/css/main.57dcd409.chunk.css",
-    "static/js/main.2dd06b4c.chunk.js"
+    "static/js/main.db347666.chunk.js"
   ]
 }
