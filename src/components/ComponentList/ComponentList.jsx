@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { useEffect } from 'react/cjs/react.development';
+import { useRef, useEffect } from 'react';
 import loadShapes from '../../utils/loadShapes';
 import './ComponentList.scss';
 
