@@ -5,6 +5,7 @@
 Diagraam is simply a diagram editor, mainly focused for software architecture and algorithmic decision tree diagrams. The goal is to provide a platform to create interactive diagrams.
 
 ## Features
+
 1. It provides a component-list (list of all shapes supported by Diagraam) where you can pick and drag a component from.
 2. You can use a component by dragging and dropping an element on the editor. Place the component wherever you want by dragging it.
 3. In the editor, click on an element to see different options, set width, height, background color, label and many more.

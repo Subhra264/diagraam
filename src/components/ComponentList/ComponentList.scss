@@ -1,17 +1,17 @@
 .component-selector {
-    background-color: #1E1B31;
-    color: #DDDDDDBF;
-    border-right: 3px solid #333337;
+  background-color: #1e1b31;
+  color: #ddddddbf;
+  border-right: 3px solid #333337;
 
-    .shapes-container {
-        .shapes-type-heading {
-            font-size: 1.2em;
-            padding: 0.5em;
-        }
-
-        .shapes {
-            padding: 0.7em 0;
-            background-color: #1F1E38;
-        }
+  .shapes-container {
+    .shapes-type-heading {
+      font-size: 1.2em;
+      padding: 0.5em;
     }
+
+    .shapes {
+      padding: 0.7em 0;
+      background-color: #1f1e38;
+    }
+  }
 }

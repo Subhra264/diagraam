@@ -1,39 +1,39 @@
-$fieldBackgroundColor: #2C2E41;
+$fieldBackgroundColor: #2c2e41;
 
 .component-meta-editor {
-    // background-color: #1E1B31;
+  // background-color: #1E1B31;
 
-    .container {
-
-        h3, .underline {
-            margin-left: 0.5em;
-            color: #E9DADA;
-        }
-
-        .underline {
-            width: 8em;
-            height: 1px;
-            background-color: #E9DADA;
-        }
-        
-        input, textarea {
-            display: inline-block;
-            padding: 0.6em 0.8em;
-            background: $fieldBackgroundColor;
-            margin: 0 0.6em;
-            outline: none;
-            border: none;
-            color: #e5dcdc;
-            border-radius: 0.4em;
-            
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        .key-field-name {
-            padding: 0.6em;
-        }
+  .container {
+    h3,
+    .underline {
+      margin-left: 0.5em;
+      color: #e9dada;
     }
+
+    .underline {
+      width: 8em;
+      height: 1px;
+      background-color: #e9dada;
+    }
+
+    input,
+    textarea {
+      display: inline-block;
+      padding: 0.6em 0.8em;
+      background: $fieldBackgroundColor;
+      margin: 0 0.6em;
+      outline: none;
+      border: none;
+      color: #e5dcdc;
+      border-radius: 0.4em;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .key-field-name {
+      padding: 0.6em;
+    }
+  }
 }

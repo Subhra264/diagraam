@@ -1,36 +1,35 @@
 .export-as-selector {
-    display: flex;
-    position: relative;
-    margin: 0 0.5em;
-    padding: 0.5em;
-    background: #2644E2;
-    border-radius: 0.4em;
-    align-items: center;
-    overflow: visible;
-    color: #ddd;
+  display: flex;
+  position: relative;
+  margin: 0 0.5em;
+  padding: 0.5em;
+  background: #2644e2;
+  border-radius: 0.4em;
+  align-items: center;
+  overflow: visible;
+  color: #ddd;
 
-    .export-as-label {
-        cursor: pointer;
+  .export-as-label {
+    cursor: pointer;
+  }
+
+  .export-select-options {
+    position: absolute;
+    top: 110%;
+    padding: 0.6em;
+    right: 0;
+    /* left: 0; */
+    width: max-content;
+    background: #6c3dc9;
+
+    .select-option {
+      border-radius: 0.4em;
+      padding: 0.5em;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #6c92d9;
+      }
     }
-        
-    .export-select-options {
-        position: absolute;
-        top: 110%;
-        padding: 0.6em;
-        right: 0;
-        /* left: 0; */
-        width: max-content;
-        background: #6c3dc9;
-
-        .select-option {
-            border-radius: 0.4em;
-            padding: 0.5em;
-            cursor: pointer;
-
-            &:hover {
-                background-color: #6c92d9;
-            }
-        }
-    }
-    
+  }
 }
